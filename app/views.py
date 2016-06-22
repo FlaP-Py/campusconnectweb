@@ -43,6 +43,7 @@ def start(request):
 	except:
 		User.objects.create(gprofileId=gId,firstname=firstname,lastname=lastname,email=email,image_url=image_url)
         # TODO: change name signup page
+		print "here"
 		return HttpResponseRedirect("/sign_up")
 
 
