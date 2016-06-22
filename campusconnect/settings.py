@@ -72,9 +72,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'campusconnect.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -82,6 +79,29 @@ DATABASES = {
     }
 }
 
+
+# import os
+# if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+#     # Running on production App Engine, so use a Google Cloud SQL database.
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'HOST': '/cloudsql/django-deploy/:<your-cloud-sql-instance>',
+#             'NAME': '<your-database-name>',
+#             'USER': 'root',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': '<your-database-name>',
+#             'USER': '<your-database-user>',
+#             'PASSWORD': '<your-database-password>',
+#             'HOST': '<your-database-host>',
+#             'PORT': '3306',
+#         }
+#     }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

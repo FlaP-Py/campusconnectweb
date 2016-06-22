@@ -2,8 +2,17 @@ application: uploadnotes-2016
 version: 1
 runtime: python27
 api_version: 1
-threadsafe: false
+threadsafe: true
 
 handlers:
+- url: /static
+  static_dir: static/
 - url: .*
-  script: django_bootstrap.py
+  script: campusconnect.wsgi.application
+
+builtins:
+- django_wsgi: on
+
+libraries:
+- name: django
+  version: 1.8
