@@ -177,7 +177,7 @@ def search_page(request):
 def upload_page(request):
 	if "active" in request.session:
 		if request.session["active"]:
-			template = loader.get_template("uploads.html")
+			template = loader.get_template("upload.html")
 			return HttpResponse(template.render())
 		else:
 			return HttpResponseRedirect("/signin")
@@ -219,6 +219,8 @@ def mobile_sign_up(request):
 		image_url = data["imageUrl"]
 		User.objects.create(gprofileId=gprofile_id,profileId=profile_id,firstname=firstname,lastname=lastname,email=email,image_url=image_url)
 		return HttpResponse("Success")
+
+
 
 
 
