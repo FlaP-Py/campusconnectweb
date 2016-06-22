@@ -3,21 +3,75 @@
 <link rel="stylesheet" type="text/css" href="/static/style/login.css"/>
 <link rel="stylesheet" type="text/css" href="/static/style/style_1.css"/>
 <link rel="stylesheet" type="text/css" href="/static/style/font-awesome.min.css"/>
+    <script src="/static/js/cookie-js.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   
+	<!--Nav bar and side bar-->
+	  <script src="/static/js/sidebar.js"></script>
+    <link rel="stylesheet" href="/static/style/style-sidebar.css" />
+    <link rel="stylesheet" href="/static/style/sidebar.css"/>
+	    <link rel="stylesheet" href="/static/style/index.css"/>
+	<!--Nav bar and side bar-->	
+	
+	<!--grid layout-->
+   <script src="/static/js/brick-by-brick.js"></script>
+   <link rel="stylesheet" href="/static/style/brick-by-brick.css" />
+<!--grid layout-->
 
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.css"/>
-</head>
+ <!--tabs-->
+    <link href="/static/style/generic-notForTabs.css" rel="stylesheet" type="text/css" />
+    <link href="/static/style/responsive-tabs.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/responsive-tabs.js" type="text/javascript"></script>
+	</head>
 <style>
 
 
 </style>
 <script>
-function f()
-{
-	//alert(document.getElementById("username").value);
-	
-	//alert(document.getElementById("password").value);
-}
+$(document).on('ready',function(){
+//for getting colleges
+branch=[];
+data={};
+list=[];
+  $.ajax({
+  type:'GET',
+  dataType: 'json',
+  contentType: 'application/json',
+  url: "https://uploadnotes-2016.appspot.com/_ah/api/notesapi/v1/collegeList",
+  data: JSON.stringify(data),
+  success: function (data) {
+      console.log(data);
+	  list=data.collegeList;
+	  for(i=0;i<data.collegeList.length;i++)
+	  {
+	  $('<option value="'+data.collegeList[i].collegeId+'">'+data.collegeList[i].collegeName+'</option>').appendTo('#college');
+		branch.push(data.collegeList[i].branchNames);
+		
+	  }
+	  
+	 }
+	});
+k=0;	
+//change in college=>change in branch
+$('#college').on('change',function(){
+		for(i=0;i<list.length;i++)
+		{
+			if(this.value==list[i].collegeId)
+			{   k++;
+				$('#branch').empty();						 
+					for(j=0;j<list[i].branchNames.length;j++)
+					{
+						 $('<option value="'+list[i].branchNames[j]+'">'+list[i].branchNames[j]+'</option>').appendTo('#branch');
+					}
+			}
+		}
+
+		});
+
+});
 </script>
 <body>
   <div class="wrapper">
@@ -26,8 +80,8 @@ function f()
 	  	  <form role="form" action = "/register_api" method ="post" >
 		<b>Which College do you go To?</b>
 		<br>
-      <select id="college" type="text" value=""  name="college" placeholder="I'm in College/University" style="width:80%"/>
-	   <option value="Year" style="color:#ccc">College</option>
+      <select id="college" type="text" value=""  name="college" placeholder="I'm in College/University" style="width:80%" required/>
+	   <option value="college" style="color:#ccc">College</option>
 	  </select>
 	  <br>
 	  <br>
@@ -45,26 +99,12 @@ function f()
 	  <br>
 	  <br>
 	  <b>Which Branch are you in?</b><br>
-	  <select value=""  name="branch" placeholder="Branch" class="branch" style="width:80%">
+	  <select value=""  name="branch" placeholder="Branch" id="branch" style="width:80%">
 	  <option value="Branch" style="color:#ccc">Branch</option>
-	  <option value="CSE" id="branch"><center>CS</center></option>
-	  <option value="ECE" id="branch">ECE</option>
-	  <option value="MECH" id="branch">MECH</option>
-	  <option value="CIVIL" id="branch">CIVIL</option>
-	  <option value="EEE" id="branch">EEE</option>
-	  <option value="BIOTECH" id="branch">BIOTECH</option>
 	  </select>
 	  <br><br>
 	  <b>Which Section are you in?</b><br>
-	  <select value=""  name="section" placeholder="section" class="section" style="width:80%">
-	  <option value="section" style="color:#ccc">Section</option>
-	  <option value="A" id="branch"><center>CS</center></option>
-	  <option value="B" id="branch">ECE</option>
-	  <option value="C" id="branch">MECH</option>
-	  <option value="D" id="branch">CIVIL</option>
-	  <option value="E" id="branch">EEE</option>
-	  <option value="F" id="branch">BIOTECH</option>
-	  </select>
+	  <input type="text" value=""  name="section"  class="section" style="width:80%">
 	  <br><br>
       <button id="submitBtn" type="submit" name="submit" style="background-color:#f7971d">Submit</button>
       <p id="error" style="color:red;display:none; ">*Enter valid branch and year</p>

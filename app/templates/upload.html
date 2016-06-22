@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <script src="/static/js/sidebar.js"></script>
+	<script src="/static/js/cookie-js.js"></script>
+    <link rel="stylesheet" href="/static/style/style-sidebar.css" />
+    <link rel="stylesheet" href="/static/style/sidebar.css"/>
+	    <link rel="stylesheet" href="/static/style/index.css"/>
+		<!--grid layout-->
+   <script src="/static/js/brick-by-brick.js"></script>
+   <link rel="stylesheet" href="/static/style/brick-by-brick.css" />
+<!--grid layout-->
+    <link rel="stylesheet" type="text/css" href="/static/style/slick.css">
+	  <script src="/static/js/slick.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="/static/style/slick-theme.css">
+<!--tabs-->
+    <link href="/static/style/generic-notForTabs.css" rel="stylesheet" type="text/css" />
+    <link href="/static/style/responsive-tabs.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/responsive-tabs.js" type="text/javascript"></script>
+<!--tabs-->
+  </head>
+<style>
+
+.img-circle {
+    border-radius: 50%;
+}
+body{
+background-color:#f5f5f5;
+//overflow-x: hidden;
+}
+ div.panel-container {
+    border: 0px solid #f5f5f5;
+    background-color: #f5f5f5;
+   
+} 
+.profile:hover{
+background-color:transparent;
+}
+.navbar-stacked{
+background-color:#f5f5f5;
+border:1px solid #f5f5f5;
+}
+#card{
+background-color:white;border:1px solid #ccc;height:220px;margin-bottom:1px;margin-color:#ccc;color:black;width:820px;height:300px;
+}
+
+//grid
+   .single-column .b-by-b-item {
+       width: 100%!important;
+    }
+
+    @media (min-width: 0px) and (max-width: 480px) {
+       #layout .b-by-b-item {
+           width: 100%;
+        }
+        .single-column .b-by-b-item {
+       width: 110%!important;
+    }
+    }
+    
+    @media (min-width: 481px) and (max-width: 1024px) {
+        #layout .b-by-b-item {
+          width: 60%;
+        }
+     
+    }
+    @media (min-width: 1025px) {
+       #layout .b-by-b-item {
+         width: 33.33%;
+      } 
+    }
+	.img-circle {
+    border-radius: 50%;
+	margin-left:20px;
+}
+.tabs1,tabs2,tabs3{
+background-color:#f5f5f5;
+}
+    .tabs1{
+	
+	
+	}
+	.tabs2{
+
+	
+	}
+	.tabs3{
+	
+	
+	}
+	.card{
+	width:39%;
+	}
+    
+    
+@media only screen and (min-width: 550px) {
+    .tabs1{
+	width:100%;
+	
+	}
+	.tabs2{
+	width:100%;
+	
+	}
+	.tabs3{
+	
+	width:100%;
+	}
+   
+}
+    /*
+@media only screen and (max-width: 550px) {
+    .tabs1{
+	font-size:2px;
+	
+	width:40%;
+	}
+	.tabs2{
+        margin-left:-87px;
+	width:33%;
+	
+	}
+	.tabs3{
+	font-size:2px;
+        margin-left:-87px;
+	width:33%;
+	}
+    .rtabs{
+        
+        width:97% !important;
+    }
+}*/
+//grid
+#card{
+background-color:blue;
+}
+#due-date,#due-time{
+display:none;
+}
+#class-number{
+width:30%;
+}
+.well{
+min-height:200px;
+}
+</style>
+<script>
+$(document).on('ready',function(){
+	pId=Cookies.get("profileId");
+		data={"profileId":pId};
+        
+			  $.ajax({
+			  type:'GET',
+			  dataType: 'json',
+			  url: 'https://uploadnotes-2016.appspot.com/_ah/api/notesapi/v1/feed/ahJzfnVwbG9hZG5vdGVzLTIwMTZyFAsSB1Byb2ZpbGUYgICAgLyhggoM',
+			  data: data,
+			  beforeSend: function (xhr) {
+				if (xhr && xhr.overrideMimeType) {
+				  xhr.overrideMimeType('application/json;charset=utf-8');
+				}
+			  },
+			success: function (data) {
+					console.log(data);
+					$('img[src="profile.png"]').attr('src', data.photoUrl);
+						 //$("#image").src()
+						  // alert(data.subscribedCourseList[i].points);
+					$('#pts').text(data.points);
+					$('#pname').text(data.profileName);
+					$('#profile-name').text(data.profileName);
+					$('#profile-pts').text(data.points);
+				}
+				});
+		$("#type-select").on('change',function(){
+		if(this.value=="assignment" || this.value=="exam" )
+		{
+		$("#due-date").css("display","block");
+		$("#due-time").css("display","block");
+		$("#class-number").css("display","none");
+		
+		}
+		else if(this.value=="notes")
+		{
+		$("#due-date").css("display","none");
+		$("#due-time").css("display","none");
+		$("#class-number").css("display","block");
+		}
+	});
+	
+	     m=[]
+	 slideIndex=-1;
+   
+      $(".regular").slick({
+        dots: true,
+        infinite: false,
+        slidesToShow: 4,
+        variableWidth: true,
+        slidesToScroll: 4,
+		responsive: [
+                            {
+                              breakpoint: 1077,
+                              settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2
+                              }
+                            },
+                            {
+                              breakpoint: 1088,
+                              settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3
+                              }
+                            },
+                            {
+                              breakpoint: 800,
+                              settings:  {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                              }
+                            }
+
+                          ]
+      });
+	 
+	 
+	 function f(value){
+     //$('.slides').slickCurrentSlide()+1);
+	 $('.regular').slick('slickRemove',value);
+	 if (slideIndex !== -1){
+    slideIndex--;
+	 for(i=value;i<=slideIndex;i++)
+	 {
+	var ar=i+1;
+	 var s="#page-"+ar;
+	 var id="#page-"+i;
+	 var fun="f("+i+")";
+	 var p="#c-"+ar;
+	 var id1="#c-"+i;
+	 var body="<center>"+i+"</center>";
+	  alert(fun+" "+p);
+	 $(p).attr("index",i);
+	 
+	 $(s).html(body);
+	 $(p).attr('onclick',fun);
+	 $(p).attr("id",id1);
+	 $(s).attr("id",id);
+	 }
+	 }
+ 
+		}
+	 
+	 
+	 
+ function  add(img) {
+  slideIndex++;
+  $('.regular').slick('slickAdd','<div><div class="img-wrap"><a href="'+img+'" target=_blank ><img src="'+img+'" width="241" height="300"><h3 id="page-'+slideIndex+'"style="margin-top:-75px;"> <center> '+(slideIndex+1)+'</center></h3></a><span index="'+slideIndex+'" id="c-'+slideIndex+'"class="close" onclick="f('+slideIndex+')"  >&times;</span></div></div>');
+ //document.getElementsByClassName('close').addEventListener(
+ /*data={
+ "file":img
+ };
+  $.ajax({
+        type:'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        url: 'http://uploadingtest-1344.appspot.com/img',
+        data: JSON.stringify(data),
+        success: function (data) {
+        console.log(data);}
+		});*/
+}
+    $("#fileUpload").on('change',function(){
+	  $this=$("#fileUpload");
+          //Get count of selected files
+		   countFiles =0;
+          countFiles = $("#fileUpload")[0].files.length;
+		  //alert(countFiles);
+          var imgPath = $("#fileUpload")[0].value;
+		  //alert(imgPath);
+          var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+          var image_holder = $("#image-holder");
+          image_holder.empty();
+		   
+          if (extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof(FileReader) != "undefined") {
+              //loop for each file selected for uploaded.
+              for (var i = 0; i < countFiles; i++) 
+              {
+			  
+			   var img = document.createElement("img");
+			   img.src = window.URL.createObjectURL($("#fileUpload")[0].files[i]);
+				add(img.src);
+				//alert(m.length);
+              }
+			  
+            } else {
+              alert("This browser does not support FileReader.");
+            }
+          } else {
+            alert("Pls select only images");
+          }
+		  //car();
+		  flag=1;
+		 // alert(m.length);
+		  //car();
+        });
+		
+		$('#upload').submit(function(eventObj) {
+			//ahJzfnVwbG9hZG5vdGVzLTIwMTZyFAsSB1Byb2ZpbGUYgICAgJuQxAgM
+			$(this).append('<input type="text" name="profileId" value="'+pId+'" style="display:none"/> ');
+			$(this).append('<input type="text" name="courseId" value="ahJzfnVwbG9hZG5vdGVzLTIwMTZyEwsSBkNvdXJzZRiAgICAnYrWCAw" style="display:none"/> ');
+			$(this).append('<input type="text" name="title" value="title"  style="display:none"/> ');
+			return true;
+								});
+});
+</script>
+<body>
+    <!-- Fixed navbar -->
+		<nav class="navbar navbar-default nav" style="margin-top:-55px;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        
+	  <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+         
+   
+         <button class="btn btn-default sub5 navbar-toggle visible-xs" ><span class="glyphicon glyphicon-bell" ></span></button>
+      <button  class="navbar-toggle collapsed"  aria-expanded="false" style="border:0px solid white;">
+          
+             <a href="#">
+                 <span class="glyphicon glyphicon-search" style="border:0px solid white;"></a><span>
+      </button>
+        
+      <a class="navbar-brand" href="#">Brand</a>
+        
+    </div>
+
+     
+      <form class="navbar-form navbar-left hidden-xs" role="search">
+        <div class="form-group">
+			<button type="submit" class="btn btn-default sub " ><span class="glyphicon glyphicon-search" style="width:10px;"></button>
+          <input type="text" class="form-control search "  id="search" style="width:700px;">
+       <div style="background-color:#5cb85c;color:white;" class="btn btn-default btn-success  center"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>Upload</div>
+                
+		 
+	   </div>
+		 
+		<!--  <input type="file"  class="btn btn-primary btn-success upload"><span class="glyphicon glyphicon-plus"></span> Upload  <span style="background-color:#5cb85c;color:white;" class="btn btn-default btn-success  center" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>Upload
+        <input type="file"/></span>-->
+	</form>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-bell" ></span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" ></span> </a>
+           
+        
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+          
+      </ul>
+    </div><!-- /.navbar-collapse -->
+          
+  </div><!-- /.container-fluid -->
+</nav>
+ <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6 col-md-2 sidebar sidebar-left sidebar-animate sidebar-md-show" >
+        <ul class="nav navbar-stacked">
+		<li><center><a href="#" width="50%" height="50%" class="profile.png"><img src="profile.png" class="img-circle" width="50%" height="50%"></a></center></li>
+		 <li><center><span id="pname">Name</span></center></li>
+        
+        <li><center>Points: &nbsp <span id="pts">0</span></center></li>
+		<br>
+		<div style="border:1px solid #ccc;border-bottom:1px"></div>
+            
+            <li class="visible-xs"><div style="margin-top:5px;margin-left:10px;background-color:#5cb85c;color:white;" class="btn btn-default btn-success  center"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>Upload</div>
+            <div style="border:1px solid #ccc;border-bottom:1px;margin-top:5px;"></div>
+            </li>
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about">My Bookmarks</a></li>
+		   <li><a href="#about">My Uploads</a></li>
+		   <div style="border:1px solid #ccc;border-bottom:1px"></div>
+		    <li><a href="#about">Add Course</a></li>
+			<div style="border:1px solid #ccc;border-bottom:1px"></div>
+          <li><a href="#contact">Offers</a></li>
+		  <li><a href="#contact">How to get points</a></li>
+		  <li><a href="#contact">Invite</a></li>
+        </ul>
+      </div>
+	  
+      <div class="main col-xs-12 col-md-10 col-md-offset-2 " style="padding-left:20px;">
+	  <div class="row">
+	  <div style="font-size:40px;"> &nbsp Upload</div>
+	  </div>
+	  <div class="row" style="padding-left:10px;">
+	  <div class="col-xs-6">
+	  <form  method="POST" action="http://uploadnotes-2016.appspot.com/img" id="upload" enctype="multipart/form-data"> </form>
+	  <br>
+	  <div>
+	  <select form="upload" id="type-select" value="notes"  name="type" >
+	  <option value="notes"><center>Notes</center></option>
+	  <option value="assignment">Assignment</option>
+	  <option value="exam">Exam</option>
+	 </select>
+	 </div>
+	 <br>
+	 <div id="class-number">
+	 Class Number:
+	 <input type="number" form="upload" id="class-number" value="1" min="1" name="classNumber" >
+	 </div>
+	  <div id="due-date">
+	Due Date:
+	 <input type="date" name="dueDate"  id="date1" form="upload">
+	 </div>
+	 <br>
+	  <div id="due-time">
+	 Due Time:
+	 <input type="text" name="dueTime"  id="date1" form="upload">
+	 </div>
+	 <br>
+	 <input type="submit" form="upload" class="btn btn-success" value="Done">
+	 </div>
+	 <div class="col-xs-6">
+	 <br>
+		<center>
+		<input type="date" name="date"  id="date" form="upload">
+		<script>
+		document.getElementById('date').valueAsDate = new Date();
+		document.getElementById('date1').valueAsDate = new Date();
+		
+		</script>
+		</center>
+		<br>
+		 
+		<center>
+		<input id="fileUpload" form="upload"  type="file" name="file" multiple/>
+	  </center>
+	  </div>
+	  </div>
+	  <br>
+	 <div class="row">
+	 <div class="col-xs-12">
+	 <section class="regular slider well" >  
+	 
+	</section>
+	</div>
+	 <div class="col-xs-12">
+	 <div>Description:</div>
+	   <textarea  class="btn-block" name="desc"form="upload" rows="4"  >
+	   </textarea>
+	 </div>
+	  </div>
+</body>
+</html>

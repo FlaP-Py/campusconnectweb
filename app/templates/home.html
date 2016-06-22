@@ -140,7 +140,8 @@ data={};
   },
   success: function (data) {
       console.log(data);
-      $('img[src="profile.png"]').attr('src', data.photoUrl);
+       if(data.photoUrl!="undefined")
+	  $('img[src="/static/style/profile.png"]').attr('src', data.photoUrl);
      //$("#image").src()
       // alert(data.subscribedCourseList[i].points);
      $('#pts').text(data.points);
