@@ -7,7 +7,7 @@ headers = {'Content-Type': 'application/json'}
 def sign_up(user, form_data):
     user_profile = dict()
     user_profile["profileName"] = user.firstname + " " + user.lastname
-    user_profile["collegeId"] = "ahJzfnVwbG9hZG5vdGVzLTIwMTZyFAsSB0NvbGxlZ2UYgICAgMCcggkM"#form_data["college"]
+    user_profile["collegeId"] = form_data["college"]
     try:
         user_profile["batchName"] = form_data["batch"]
         user_profile["branchName"] = form_data["branch"]
