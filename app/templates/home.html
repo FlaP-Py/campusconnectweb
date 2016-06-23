@@ -316,7 +316,7 @@ data={};
           <li><a href="#about">My Bookmarks</a></li>
 		   <li><a href="#about">My Uploads</a></li>
 		   <div style="border:1px solid #ccc;border-bottom:1px"></div>
-		    <li><a href="#about">Add Course</a></li>
+		    <li><a href="#responsive">Add Course</a></li>
 			<div style="border:1px solid #ccc;border-bottom:1px"></div>
           <li><a href="#contact">Offers</a></li>
 		  <li><a href="#contact">How to get points</a></li>
@@ -352,80 +352,59 @@ data={};
     </div>
 
 	
-	<div class="modal fade" id="courses" tabindex="-1" role="dialog" aria-labelledby="course" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content course-content" >
-		<div class="row" style="margin-top:15px;">
-		   <div class="col-xs-6 col-xs-offset-5">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:10px;"><span aria-hidden="true">X</span></button>
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-			</div>
-		</div>	
-		<br>
-        <h4 class="modal-title" id="course" ><center><b>&nbsp Add Course</b></center></h4>
-      <br>
-      <div class="modal-body">
-	  <div class="row">
-	    <div class="col-xs-1"></div>
-	   <div class="col-xs-2">
-        <select id="dept-select" value=""  name="year" placeholder="year" class="year">
-	  <option value="My" style="color:#ccc">Department</option>
-	   <option value="CS" id="branch"><center>CS</center></option>
-	  <option value="ECE" id="branch">ECE</option>
-	  <option value="MECH" id="branch">MECH</option>
-	  <option value="CIVIL" id="branch">CIVIL</option>
-	  <option value="EEE" id="branch">EEE</option>
-	  <option value="BIOTECH" id="branch">BIOTECH</option>
-	  </select>
-      </div>
-	  
-	   <div class="col-xs-2">
-        <select id="course-select" value=""  name="year" placeholder="year" class="year">
-	  <option value="My" style="color:#ccc">Course</option>
-	  <option value= "CHEMISTRY-101">CHEMISTRY-101</option>
-	  <option value="PHYSICS-101">PHYSICS-101</option>
-	  <option value="ALGORITHIMS-101">ALGORITHIMS-101</option>
-	  <option value="DATA STRUCTURES">DATA STRUCTURES</option>
-	  </select>
-      </div>
-	  
-	   <div class="col-xs-2">
-        <select id="year1-select" value=""  name="year" placeholder="year" class="year">
-	  <option value="My" style="color:#ccc">Year</option>
-	  <option value= "2016">2016</option>
-	  <option value="2017">2017</option>
-	  <option value="2017">2018</option>
-	  <option value="2017">2019</option>
-	  <option value="2017">2020</option>
-	  <option value="2017">2021</option>
-	  </select>
-      </div>
-	  
-	   <div class="col-xs-2">
-        <select id="sem-select" value=""  name="year" placeholder="year" class="year">
-	  <option value="My" style="color:#ccc">Sem</option>
-	  <option value= "odd">ODD</option>
-	  <option value="even">EVEN</option>
-	  </select>
-      </div>
-	  
-	   <div class="col-xs-2">
-        <input type="text" id="prof-select" value=""  name="year" placeholder="Professor" class="year">
-	 
-      </div>
-	  </div>
-	  <br><br>
-	  <div class="modal-footer">
-	   <div class="col-xs-6 col-xs-offset-2">
-		<div class="row">
-        <button type="button" class="btn btn-file course-button">Add Course</button>
+	  <div id="responsive" class="modal fade" tabindex="-1" data-width="760" style="display: none;" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times </button>
+    <h4 class="modal-title">ADD COURSE</h4>
+  </div>
+  <div class="modal-body" style="max-height:1800px;overflow-y:hidden">
+    <div class="row">
+      <div class="col-md-12" >
+        <p><input class="form" type="text" id="course-name"style="width:80%" placeholder="Course Name"></p>
+		<p><select id="college" class="form-control" type="text" value=""  name="college" placeholder="I'm in College/University"  required/>
+		<option value="college" style="color:#ccc">College</option>
+		</select></p>
+        <p><input class="form-control" id="course-code" type="text" placeholder="Course Code.. e.g..,CHE402"></p>
+        <p><input class="form-control" id="proff" type="text" placeholder="Professor"></p>
+		<p><input class="form-control" id="sem" type="text" placeholder="Semester..Odd/Even"></p>
+		<p><input type="checkbox"  id="elective" name="elective" value="elective" style="margin-top:-1px;" placeholder=""><span>Elective</span></p>
+		<div style="border:1px solid #ccc;" placeholder="Semester"></div><br>
+        <p><input class="form-control" id="batch" type="text" placeholder="Batch"></p>
+        <p><input class="form-control" id="section" type="text" placeholder="Section"></p>
+        <p><input class="form-control" id="branch" type="text" placeholder="Branch"></p>
+       <div style="border:1px solid #ccc;" ></div><br>
+	   <b>Timetable</b><br>
+	   <div class="col-xs-2 day-1">
+	   <div><input type="checkbox" name="Mon" value="1" class="days" > Mon
+	   </div>
+	   <div id="dtBox"></div>
+	   
+	   </div>
+	   <div class="col-xs-2 day-2">
+	   <div><input type="checkbox" name="Tue" value="2" class="days">Tue</div>
+	   </div>
+	  <div class="col-xs-2 day-3">
+	   <div><input type="checkbox" name="Wed" value="3" class="days"> Wed</div>
+	   </div>
+	   <div class="col-xs-2 day-4" >
+	   <div><input type="checkbox" name="Thur" value="4" class="days"> Thur</div>
+	   </div>
+	   <div class="col-xs-2 day-5" >
+	   <div><input type="checkbox" name="Fri" value="5" class="days"> Sat</div>
+	   </div>
+	   <div class="col-xs-2 day-6" >
+	   <div><input type="checkbox" name="Sat" value="6" class="days"> Sun</div>
 	    </div>
-	  </div>
+	   <br>
+	   <br>
+	   <br>
+	   <br>
+	   <br>
+	  <center> <button value="create" id="done" style="background-color:#f7971d;border-color:#f7971d;color:white">Create</button></center>
       </div>
+	  </div>
     </div>
   </div>
-</div>
-</div>
 
 
 
@@ -453,7 +432,7 @@ data={};
         <button type="button" class="btn btn-file continue" style="background-color:#37BC61;border-color:#37BC61;margin-left: 82px;width:310px;color:white;">Upload
 		<input type="file" multiple/></button>
 	  <br><br>
-	  <a href="#courses" class="course" data-toggle="modal" data-target="#courses" data-dismiss="modal"> Add a new course</a>
+	  <a href="#responsive" class="course" data-toggle="modal" data-target="#responsive" data-dismiss="modal"> Add a new course</a>
       </div>
     </div>
   </div>
